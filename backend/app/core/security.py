@@ -1,3 +1,4 @@
+import secrets
 from datetime import datetime, timedelta, timezone
 
 from jose import jwt
@@ -24,3 +25,7 @@ def create_access_token(subject: str) -> str:
 def decode_access_token(token: str) -> str:
     payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
     return payload["sub"]
+
+
+def generate_refresh_token() -> str:
+    return secrets.token_urlsafe(32)
