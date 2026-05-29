@@ -17,3 +17,4 @@ Each ADR documents a significant decision made during development — what we ch
 |---|---|---|
 | [0001](0001-tech-stack.md) | Core tech stack | Accepted |
 | [0002](0002-auth-strategy.md) | Authentication strategy | Accepted |
+| [0003](0003-deployment-strategy.md) | Deployment strategy | Pending |
