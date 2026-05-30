@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Sun, Moon, ChevronDown, Zap } from 'lucide-react'
+import { ChevronDown, Zap } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
-import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
@@ -48,7 +47,6 @@ function DropdownMenu({ items }: { items: { label: string; href: string; descrip
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-  const { theme, toggle } = useTheme()
   const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -106,13 +104,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
-            onClick={toggle}
-            className={buttonVariants({ variant: 'ghost', size: 'sm' })}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
           <Link to="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
             Sign In
           </Link>
