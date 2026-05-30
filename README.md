@@ -36,6 +36,21 @@ docker compose up -d --build
 docker compose exec backend uv run alembic upgrade head
 ```
 
+## Common workflows
+
+**Generate a new migration after changing a model:**
+```bash
+docker compose exec backend uv run alembic revision --autogenerate -m "describe your change"
+docker compose exec backend uv run alembic upgrade head
+```
+
+**Add a shadcn/ui component:**
+```bash
+cd frontend
+npx shadcn@latest add <component>
+```
+> ⚠️ shadcn drops files into a literal `@/` folder. After running, move them to `src/components/ui/` and fix any imports from `"src/lib/utils"` → `"@/lib/utils"`.
+
 ## Docs
 
 **Architecture decisions**
