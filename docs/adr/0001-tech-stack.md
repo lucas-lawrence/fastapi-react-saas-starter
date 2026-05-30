@@ -18,7 +18,18 @@ Needed a backend framework, database, and containerisation strategy for a SaaS s
 ## Conventions
 
 - All timestamps use `TIMESTAMPTZ` (timestamp with timezone) — stored in UTC, avoids timezone bugs
-- All models carry `created_at` (immutable) and `updated_at` (set by SQLAlchemy `onupdate` on every write)
+- All models inherit `TimestampMixin` which provides three standard columns:
+  - `created_at` — immutable, set by DB on insert
+  - `updated_at` — set by SQLAlchemy `onupdate` on every write
+  - `deleted_at` — `NULL` means active; non-null means soft-deleted (see soft delete strategy below)
+
+## Soft delete strategy
+
+Deleting a record sets `deleted_at = now()` rather than issuing a `DELETE`. The row is excluded from all queries via `WHERE deleted_at IS NULL`.
+
+- **Grace period:** 30 days. A nightly cleanup job hard-deletes rows where `deleted_at < now() - interval '30 days'` (not yet implemented — tracked as a future task).
+- **GDPR erasure requests:** skip the grace period and hard-delete immediately.
+- `refresh_tokens` are exempt — they are always hard-deleted on logout or expiry.
 
 ## Consequences
 
