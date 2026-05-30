@@ -1,5 +1,20 @@
 import { createContext, useContext, useState } from 'react'
-import { api } from '@/lib/api'
+import { gql } from '@/lib/api'
+
+const LOGIN_MUTATION = `
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      accessToken
+      refreshToken
+    }
+  }
+`
+
+const LOGOUT_MUTATION = `
+  mutation Logout($refreshToken: String!) {
+    logout(refreshToken: $refreshToken)
+  }
+`
 
 interface AuthContextValue {
   isAuthenticated: boolean
@@ -15,23 +30,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   )
 
   const login = async (email: string, password: string) => {
-    const form = new URLSearchParams()
-    form.append('username', email)
-    form.append('password', password)
-
-    const { data } = await api.post('/api/v1/auth/login', form, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    })
-
-    sessionStorage.setItem('access_token', data.access_token)
-    localStorage.setItem('refresh_token', data.refresh_token)
+    const data = await gql<{ login: { accessToken: string; refreshToken: string } }>(
+      LOGIN_MUTATION,
+      { email, password }
+    )
+    sessionStorage.setItem('access_token', data.login.accessToken)
+    localStorage.setItem('refresh_token', data.login.refreshToken)
     setIsAuthenticated(true)
   }
 
   const logout = async () => {
     const refreshToken = localStorage.getItem('refresh_token')
     if (refreshToken) {
-      await api.post('/api/v1/auth/logout', { refresh_token: refreshToken }).catch(() => {})
+      await gql(LOGOUT_MUTATION, { refreshToken }).catch(() => {})
     }
     sessionStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')

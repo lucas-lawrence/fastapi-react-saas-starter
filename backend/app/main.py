@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.v1.auth import router as auth_router
 from app.config import settings
+from app.graphql.schema import graphql_router
 
 app = FastAPI(title="FastAPI SaaS Starter")
 
@@ -14,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router, prefix="/api/v1")
+app.include_router(graphql_router, prefix="/graphql")
 
 
 @app.get("/health")
