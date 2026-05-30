@@ -8,7 +8,7 @@ A full-stack SaaS starter with FastAPI, React, and PostgreSQL — all containeri
 |---|---|
 | **Frontend** | Vite + React + TypeScript |
 | **Styling** | Tailwind CSS v4 + shadcn/ui |
-| **Backend** | FastAPI (Python) |
+| **Backend** | FastAPI (Python 3.13) |
 | **API** | GraphQL via Strawberry |
 | **ORM** | SQLAlchemy (async) + Alembic |
 | **Database** | PostgreSQL 18 |
@@ -58,6 +58,7 @@ npx shadcn@latest add <component>
 - [ADR 0002 — Auth strategy](docs/adr/0002-auth-strategy.md)
 - [ADR 0003 — Deployment strategy](docs/adr/0003-deployment-strategy.md)
 - [ADR 0004 — GraphQL over REST](docs/adr/0004-graphql-over-rest.md)
+- [ADR 0005 — UUID v7 primary keys](docs/adr/0005-uuid-v7-primary-keys.md)
 
 **Frontend decisions**
 - [FE 0001 — Framework and UI library](docs/frontend/0001-framework-and-ui.md)

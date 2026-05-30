@@ -1,7 +1,7 @@
 [project]
 name = "backend"
 version = "0.1.0"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115",
     "sqlalchemy[asyncio]>=2.0",
@@ -9,9 +9,10 @@ dependencies = [
     "alembic>=1.13",
     "pydantic-settings>=2.0",
     "python-jose[cryptography]>=3.3",
-    "passlib[bcrypt]>=1.7",
+    "bcrypt>=4.0",
     "python-multipart>=0.0.9",
     "strawberry-graphql[fastapi]>=0.243",
+    "uuid6>=2022.10.25",
 ]
 
 [dependency-groups]

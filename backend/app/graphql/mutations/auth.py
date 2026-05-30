@@ -23,7 +23,7 @@ class AuthMutation:
         db.add(user)
         await db.commit()
         await db.refresh(user)
-        return UserType(id=user.id, email=user.email, is_active=user.is_active)
+        return UserType(id=str(user.id), email=user.email, is_active=user.is_active)
 
     @strawberry.mutation(description="Sign in with email and password. Returns an access token and a refresh token.")
     async def login(self, email: str, password: str, info: Info) -> TokenPair:

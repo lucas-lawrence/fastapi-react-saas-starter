@@ -29,4 +29,4 @@ class UserQuery:
         if not user:
             return None
 
-        return UserType(id=user.id, email=user.email, is_active=user.is_active)
+        return UserType(id=str(user.id), email=user.email, is_active=user.is_active)
