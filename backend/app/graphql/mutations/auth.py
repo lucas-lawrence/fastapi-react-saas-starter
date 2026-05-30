@@ -13,7 +13,7 @@ from app.models.user import User
 
 @strawberry.type
 class AuthMutation:
-    @strawberry.mutation
+    @strawberry.mutation(description="Create a new user account. Returns the created user.")
     async def register(self, email: str, password: str, info: Info) -> UserType:
         db = info.context["db"]
         result = await db.execute(select(User).where(User.email == email))
@@ -25,7 +25,7 @@ class AuthMutation:
         await db.refresh(user)
         return UserType(id=user.id, email=user.email, is_active=user.is_active)
 
-    @strawberry.mutation
+    @strawberry.mutation(description="Sign in with email and password. Returns an access token and a refresh token.")
     async def login(self, email: str, password: str, info: Info) -> TokenPair:
         db = info.context["db"]
         result = await db.execute(select(User).where(User.email == email))
@@ -46,7 +46,7 @@ class AuthMutation:
             refresh_token=refresh_token.token,
         )
 
-    @strawberry.mutation
+    @strawberry.mutation(description="Exchange a valid refresh token for a new token pair. The old refresh token is invalidated immediately (rotation).")
     async def refresh(self, refresh_token: str, info: Info) -> TokenPair:
         db = info.context["db"]
         result = await db.execute(select(RefreshToken).where(RefreshToken.token == refresh_token))
@@ -72,7 +72,7 @@ class AuthMutation:
             refresh_token=new_token.token,
         )
 
-    @strawberry.mutation
+    @strawberry.mutation(description="Invalidate the given refresh token, signing the user out. Safe to call even if the token is already expired.")
     async def logout(self, refresh_token: str, info: Info) -> bool:
         db = info.context["db"]
         result = await db.execute(select(RefreshToken).where(RefreshToken.token == refresh_token))

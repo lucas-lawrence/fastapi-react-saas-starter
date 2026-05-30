@@ -10,7 +10,7 @@ from app.models.user import User
 
 @strawberry.type
 class UserQuery:
-    @strawberry.field
+    @strawberry.field(description="Returns the currently authenticated user. Requires a valid `Authorization: Bearer <access_token>` header. Returns null if unauthenticated.")
     async def me(self, info: Info) -> UserType | None:
         request = info.context["request"]
         db = info.context["db"]
