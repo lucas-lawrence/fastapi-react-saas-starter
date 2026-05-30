@@ -10,8 +10,9 @@ Needed a stateless, scalable auth system suitable for a SaaS product with good U
 
 - **JWT access tokens** (HS256, 15 min expiry) — short-lived, stateless, used for every API request
 - **Opaque refresh tokens** (random 32-byte string, 7 day expiry) — stored in `refresh_tokens` table, used only to obtain a new access token
-- **Refresh token rotation** — every `/refresh` call deletes the old token and issues a new one, limiting the abuse window if a token is stolen
+- **Refresh token rotation** — every `refresh` mutation deletes the old token and issues a new one, limiting the abuse window if a token is stolen
 - **Logout** invalidates the refresh token in the DB, terminating the session server-side
+- **bcrypt** — passwords are hashed with bcrypt (cost factor 12, default); used directly without passlib
 
 ## Consequences
 
