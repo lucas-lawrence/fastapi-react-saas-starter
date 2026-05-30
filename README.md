@@ -31,5 +31,12 @@ docker compose exec backend uv run alembic upgrade head
 
 ## Docs
 
+**Architecture decisions**
 - [ADR 0001 — Tech stack](docs/adr/0001-tech-stack.md)
 - [ADR 0002 — Auth strategy](docs/adr/0002-auth-strategy.md)
+- [ADR 0003 — Deployment strategy](docs/adr/0003-deployment-strategy.md)
+
+**Frontend decisions**
+- [FE 0001 — Framework and UI library](docs/frontend/0001-framework-and-ui.md)
+- [FE 0002 — Dark mode strategy](docs/frontend/0002-dark-mode.md)
+- [FE 0003 — Auth token storage](docs/frontend/0003-auth-token-storage.md)
