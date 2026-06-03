@@ -32,6 +32,9 @@ class AuthMutation:
         except EmailNotValidError:
             raise ValueError("Invalid email address")
 
+        if len(password) < 8:
+            raise ValueError("Password must be at least 8 characters")
+
         db = info.context["db"]
         result = await db.execute(select(User).where(User.email == email))
         if result.scalar_one_or_none():
