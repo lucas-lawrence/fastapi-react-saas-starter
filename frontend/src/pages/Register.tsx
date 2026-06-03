@@ -1,31 +1,24 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import countries from 'i18n-iso-countries'
+import enLocale from 'i18n-iso-countries/langs/en.json'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/context/AuthContext'
 
-const COUNTRIES = [
-  { code: 'AU', name: 'Australia' },
-  { code: 'CN', name: 'China' },
-  { code: 'HK', name: 'Hong Kong' },
-  { code: 'ID', name: 'Indonesia' },
-  { code: 'IN', name: 'India' },
-  { code: 'JP', name: 'Japan' },
-  { code: 'KR', name: 'South Korea' },
-  { code: 'MY', name: 'Malaysia' },
-  { code: 'PH', name: 'Philippines' },
-  { code: 'SG', name: 'Singapore' },
-  { code: 'TH', name: 'Thailand' },
-  { code: 'TW', name: 'Taiwan' },
-  { code: 'VN', name: 'Vietnam' },
-  { code: 'GB', name: 'United Kingdom' },
-  { code: 'US', name: 'United States' },
-]
+countries.registerLocale(enLocale)
 
 export function Register() {
   const { register } = useAuth()
   const navigate = useNavigate()
+  const countryList = useMemo(() => {
+    const names = countries.getNames('en', { select: 'official' })
+    return Object.entries(names)
+      .map(([code, name]) => ({ code, name }))
+      .sort((a, b) => a.name.localeCompare(b.name))
+  }, [])
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -112,7 +105,7 @@ export function Register() {
               className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
             >
               <option value="">Select a country</option>
-              {COUNTRIES.map((c) => (
+              {countryList.map((c) => (
                 <option key={c.code} value={c.code}>{c.name}</option>
               ))}
             </select>
