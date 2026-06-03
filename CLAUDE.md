@@ -6,7 +6,7 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 
 - [ ] Enforce `deleted_at IS NULL` on all list queries — never return soft-deleted records in collections
 - [ ] Return 404 when a single record lookup hits a soft-deleted row
-- [ ] Build nightly cleanup job to hard-delete rows where `deleted_at < now() - interval '30 days'`
+- [ ] Build nightly cleanup job (APScheduler inside FastAPI) that: (1) hard-deletes rows where `deleted_at < now() - interval '30 days'`, (2) deletes expired refresh tokens where `expires_at < now()`
 - [ ] Handle GDPR erasure requests — immediate hard delete, bypassing the 30-day grace period
 - [ ] Build `/dashboard` page (Login currently redirects here)
 - [ ] Build register page
