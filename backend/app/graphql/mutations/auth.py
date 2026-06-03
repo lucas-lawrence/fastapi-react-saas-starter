@@ -25,7 +25,7 @@ class AuthMutation:
         country: str | None = None,
     ) -> UserType:
         try:
-            email = validate_email(email, check_deliverability=False).normalized
+            email = validate_email(email, check_deliverability=False).normalized.lower()
         except EmailNotValidError:
             raise ValueError("Invalid email address")
 
@@ -42,7 +42,7 @@ class AuthMutation:
     @strawberry.mutation(description="Sign in with email and password. Returns an access token and a refresh token.")
     async def login(self, email: str, password: str, info: Info) -> TokenPair:
         db = info.context["db"]
-        result = await db.execute(select(User).where(User.email == email))
+        result = await db.execute(select(User).where(User.email == email.lower()))
         user = result.scalar_one_or_none()
         if not user or not verify_password(password, user.hashed_password):
             raise ValueError("Invalid credentials")
