@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
 import strawberry
+from email_validator import EmailNotValidError, validate_email
 from sqlalchemy import select
 from strawberry.types import Info
 
@@ -23,6 +24,11 @@ class AuthMutation:
         last_name: str | None = None,
         country: str | None = None,
     ) -> UserType:
+        try:
+            email = validate_email(email, check_deliverability=False).normalized
+        except EmailNotValidError:
+            raise ValueError("Invalid email address")
+
         db = info.context["db"]
         result = await db.execute(select(User).where(User.email == email))
         if result.scalar_one_or_none():
