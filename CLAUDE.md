@@ -8,6 +8,7 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - [ ] Return 404 when a single record lookup hits a soft-deleted row
 - [ ] Build nightly cleanup job (APScheduler inside FastAPI) that: (1) hard-deletes rows where `deleted_at < now() - interval '30 days'`, (2) deletes expired refresh tokens where `expires_at < now()`
 - [ ] Handle GDPR erasure requests — immediate hard delete, bypassing the 30-day grace period
+- [ ] Add `updateUser` mutation so users can set first_name, last_name, and email
 - [ ] Build `/dashboard` page (Login currently redirects here)
 - [ ] Build register page
 - [ ] Implement silent refresh token rotation on the frontend (auto-refresh when access token expires)
