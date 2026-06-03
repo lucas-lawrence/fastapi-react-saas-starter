@@ -12,6 +12,8 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - [ ] Build `/dashboard` page (Login currently redirects here)
 - [x] Build register page
 - [ ] Implement silent refresh token rotation on the frontend (auto-refresh when access token expires)
+- [ ] Set up backend tests (pytest) — register, login, me query
+- [ ] Set up frontend tests (Vitest) — form validation, auth context
 
 ## Coding conventions
 
