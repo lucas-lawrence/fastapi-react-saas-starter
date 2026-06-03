@@ -5,6 +5,8 @@ import strawberry
 class UserType:
     id: strawberry.ID = strawberry.field(description="Unique identifier (UUID v7).")
     email: str = strawberry.field(description="Email address used to sign in.")
+    first_name: str | None = strawberry.field(description="First name. Null until the user sets it.")
+    last_name: str | None = strawberry.field(description="Last name. Null until the user sets it.")
     is_active: bool = strawberry.field(description="Whether the account is active.")
 
 

@@ -8,6 +8,8 @@ erDiagram
         uuid id PK
         string email UK
         string hashed_password
+        string first_name
+        string last_name
         boolean is_active
         timestamptz created_at
         timestamptz updated_at
