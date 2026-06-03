@@ -10,6 +10,7 @@ erDiagram
         string hashed_password
         string first_name
         string last_name
+        string country
         boolean is_active
         timestamptz created_at
         timestamptz updated_at

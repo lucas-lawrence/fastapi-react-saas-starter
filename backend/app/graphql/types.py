@@ -7,6 +7,7 @@ class UserType:
     email: str = strawberry.field(description="Email address used to sign in.")
     first_name: str | None = strawberry.field(description="First name. Null until the user sets it.")
     last_name: str | None = strawberry.field(description="Last name. Null until the user sets it.")
+    country: str | None = strawberry.field(description="ISO 3166-1 alpha-2 country code (e.g. 'SG', 'MY'). Null until the user sets it.")
     is_active: bool = strawberry.field(description="Whether the account is active.")
 
 
