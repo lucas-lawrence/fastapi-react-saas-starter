@@ -25,7 +25,10 @@ class AuthMutation:
         country: str | None = None,
     ) -> UserType:
         try:
-            email = validate_email(email, check_deliverability=False).normalized.lower()
+            info_email = validate_email(email, check_deliverability=False)
+            if '.' not in info_email.domain:
+                raise EmailNotValidError("Invalid email address")
+            email = info_email.normalized.lower()
         except EmailNotValidError:
             raise ValueError("Invalid email address")
 
