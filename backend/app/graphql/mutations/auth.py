@@ -14,12 +14,20 @@ from app.models.user import User
 @strawberry.type
 class AuthMutation:
     @strawberry.mutation(description="Create a new user account. Returns the created user.")
-    async def register(self, email: str, password: str, info: Info) -> UserType:
+    async def register(
+        self,
+        email: str,
+        password: str,
+        info: Info,
+        first_name: str | None = None,
+        last_name: str | None = None,
+        country: str | None = None,
+    ) -> UserType:
         db = info.context["db"]
         result = await db.execute(select(User).where(User.email == email))
         if result.scalar_one_or_none():
             raise ValueError("Email already registered")
-        user = User(email=email, hashed_password=hash_password(password))
+        user = User(email=email, hashed_password=hash_password(password), first_name=first_name, last_name=last_name, country=country)
         db.add(user)
         await db.commit()
         await db.refresh(user)

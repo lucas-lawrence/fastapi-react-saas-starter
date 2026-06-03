@@ -10,7 +10,7 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - [ ] Handle GDPR erasure requests — immediate hard delete, bypassing the 30-day grace period
 - [ ] Add `updateUser` mutation so users can set first_name, last_name, and email
 - [ ] Build `/dashboard` page (Login currently redirects here)
-- [ ] Build register page
+- [x] Build register page
 - [ ] Implement silent refresh token rotation on the frontend (auto-refresh when access token expires)
 
 ## Coding conventions

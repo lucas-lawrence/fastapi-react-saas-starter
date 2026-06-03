@@ -16,10 +16,19 @@ const LOGOUT_MUTATION = `
   }
 `
 
+const REGISTER_MUTATION = `
+  mutation Register($email: String!, $password: String!, $firstName: String, $lastName: String, $country: String) {
+    register(email: $email, password: $password, firstName: $firstName, lastName: $lastName, country: $country) {
+      id
+    }
+  }
+`
+
 interface AuthContextValue {
   isAuthenticated: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
+  register: (email: string, password: string, firstName?: string, lastName?: string, country?: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -49,8 +58,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(false)
   }
 
+  const register = async (email: string, password: string, firstName?: string, lastName?: string, country?: string) => {
+    await gql(REGISTER_MUTATION, {
+      email,
+      password,
+      firstName: firstName ?? null,
+      lastName: lastName ?? null,
+      country: country ?? null,
+    })
+    await login(email, password)
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   )
