@@ -35,6 +35,7 @@ Add a new SQLAlchemy model with GraphQL support. Follow every step in order.
    docker compose exec backend uv run alembic revision --autogenerate -m "add <model> table"
    docker compose exec backend uv run alembic upgrade head
    ```
+   > After running, verify with: `docker compose exec db psql -U postgres -d app -c "\d <table>"`
 
 7. **Update the ER diagram** at `docs/data/erd.md` — add the new entity and its relationships
 

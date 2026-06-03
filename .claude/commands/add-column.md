@@ -19,6 +19,7 @@ Add a column to an existing model. Follow every step in order.
    docker compose exec backend uv run alembic revision --autogenerate -m "add <column> to <table>"
    docker compose exec backend uv run alembic upgrade head
    ```
+   > After running, verify with: `docker compose exec db psql -U postgres -d app -c "\d <table>"`
 
 5. **Update the ER diagram** at `docs/data/erd.md`
 
