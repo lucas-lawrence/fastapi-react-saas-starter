@@ -2,12 +2,21 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import countries from 'i18n-iso-countries'
 import enLocale from 'i18n-iso-countries/langs/en.json'
+import zxcvbn from 'zxcvbn'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/context/AuthContext'
 
 countries.registerLocale(enLocale)
+
+const STRENGTH_CONFIG = [
+  { label: 'Very weak', color: 'bg-red-500' },
+  { label: 'Weak',      color: 'bg-orange-500' },
+  { label: 'Fair',      color: 'bg-yellow-500' },
+  { label: 'Strong',    color: 'bg-blue-500' },
+  { label: 'Very strong', color: 'bg-green-500' },
+]
 
 export function Register() {
   const { register } = useAuth()
@@ -28,11 +37,19 @@ export function Register() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const strength = password ? zxcvbn(password) : null
+  const strengthScore = strength?.score ?? -1
+  const strengthConfig = strengthScore >= 0 ? STRENGTH_CONFIG[strengthScore] : null
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     if (password !== confirmPassword) {
       setError('Passwords do not match.')
+      return
+    }
+    if (strengthScore < 2) {
+      setError('Please choose a stronger password.')
       return
     }
     setLoading(true)
@@ -122,6 +139,19 @@ export function Register() {
               required
               autoComplete="new-password"
             />
+            {strengthConfig && (
+              <div className="space-y-1">
+                <div className="flex gap-1">
+                  {STRENGTH_CONFIG.map((s, i) => (
+                    <div
+                      key={s.label}
+                      className={`h-1 flex-1 rounded-full transition-colors ${i <= strengthScore ? strengthConfig.color : 'bg-muted'}`}
+                    />
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground">{strengthConfig.label}</p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-1.5">
