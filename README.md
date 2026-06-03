@@ -64,3 +64,4 @@ npx shadcn@latest add <component>
 - [FE 0001 — Framework and UI library](docs/frontend/0001-framework-and-ui.md)
 - [FE 0002 — Dark mode strategy](docs/frontend/0002-dark-mode.md)
 - [FE 0003 — Auth token storage](docs/frontend/0003-auth-token-storage.md)
+- [FE 0004 — Registration flow](docs/frontend/0004-registration-flow.md)

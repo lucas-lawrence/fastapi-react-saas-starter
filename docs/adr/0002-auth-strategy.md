@@ -14,6 +14,12 @@ Needed a stateless, scalable auth system suitable for a SaaS product with good U
 - **Logout** invalidates the refresh token in the DB, terminating the session server-side
 - **bcrypt** — passwords are hashed with bcrypt (cost factor 12, default); used directly without passlib
 
+## Registration validation (server-side)
+
+- **Email** — validated with `email-validator`; must have a dot in the domain (rejects `email@email`); normalised and lowercased before storing
+- **Password** — minimum 8 characters enforced; no complexity rules server-side (complexity is handled by zxcvbn on the frontend)
+- **Names / country** — optional, no server-side validation beyond field type
+
 ## Consequences
 
 - Users stay logged in for up to 7 days without re-entering credentials
