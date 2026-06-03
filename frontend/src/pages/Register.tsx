@@ -55,7 +55,7 @@ export function Register() {
     }
     setLoading(true)
     try {
-      await register(email, password, firstName, lastName, country || undefined)
+      await register(email, password, firstName, lastName, country)
       navigate('/dashboard')
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -120,6 +120,7 @@ export function Register() {
               id="country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
+              required
               className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
             >
               <option value="">Select a country</option>
