@@ -20,8 +20,13 @@ const STRENGTH_CONFIG = [
 ]
 
 export function Register() {
-  const { register } = useAuth()
+  const { register, isAuthenticated } = useAuth()
   const navigate = useNavigate()
+
+  if (isAuthenticated) {
+    navigate('/dashboard', { replace: true })
+    return null
+  }
   const countryList = useMemo(() => {
     const names = countries.getNames('en', { select: 'official' })
     return Object.entries(names)

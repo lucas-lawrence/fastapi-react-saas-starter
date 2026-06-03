@@ -6,8 +6,13 @@ import { Label } from '@/components/ui/label'
 import { useAuth } from '@/context/AuthContext'
 
 export function Login() {
-  const { login } = useAuth()
+  const { login, isAuthenticated } = useAuth()
   const navigate = useNavigate()
+
+  if (isAuthenticated) {
+    navigate('/dashboard', { replace: true })
+    return null
+  }
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
