@@ -28,6 +28,10 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - Always use `DateTime(timezone=True)` — maps to `TIMESTAMPTZ` in PostgreSQL
 - Never use plain `DateTime` without timezone
 
+### ER diagram
+- Kept at `docs/data/erd.md` as a Mermaid diagram
+- **Update it whenever a model is added or changed** — it is maintained manually alongside migrations
+
 ### Migrations
 - Always generate and run inside Docker:
   ```bash
