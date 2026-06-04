@@ -13,3 +13,4 @@ These are not architecture decisions (those live in `../adr/`) but deliberate ch
 | [0003](0003-auth-token-storage.md) | Auth token storage |
 | [0004](0004-registration-flow.md) | Registration flow |
 | [0005](0005-app-shell.md) | App shell (header, sidebar, layout) |
+| [0006](0006-page-titles.md) | Page titles |

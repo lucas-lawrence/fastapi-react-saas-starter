@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { useAuth } from '@/context/AuthContext'
 
 export function Login() {
+  useEffect(() => { document.title = 'SaaS · Sign in' }, [])
   const { login, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 

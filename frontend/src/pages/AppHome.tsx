@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { AppLayout } from '@/components/layout/AppLayout'
 
 export function AppHome() {
+  useEffect(() => { document.title = 'SaaS Home' }, [])
   return (
     <AppLayout>
       <div className="p-6">

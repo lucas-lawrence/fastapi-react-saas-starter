@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import countries from 'i18n-iso-countries'
 import enLocale from 'i18n-iso-countries/langs/en.json'
@@ -20,6 +20,7 @@ const STRENGTH_CONFIG = [
 ]
 
 export function Register() {
+  useEffect(() => { document.title = 'SaaS · Create account' }, [])
   const { register, isAuthenticated } = useAuth()
   const navigate = useNavigate()
 
