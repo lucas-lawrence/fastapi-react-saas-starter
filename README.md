@@ -12,7 +12,7 @@ A full-stack SaaS starter with FastAPI, React, and PostgreSQL — all containeri
 | **API** | GraphQL via Strawberry |
 | **ORM** | SQLAlchemy (async) + Alembic |
 | **Database** | PostgreSQL 18 |
-| **Auth** | JWT (15 min) + Refresh tokens (7 days) |
+| **Auth** | JWT (60 min) + Refresh tokens (7 days) |
 | **Package managers** | uv (Python), npm (Node) |
 | **Containerisation** | Docker Compose |
 
