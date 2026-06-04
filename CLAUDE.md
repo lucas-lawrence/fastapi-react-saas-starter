@@ -15,6 +15,7 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - [ ] Implement silent refresh token rotation on the frontend (auto-refresh when access token expires)
 - [ ] Set up backend tests (pytest) — register, login, me query
 - [ ] Set up frontend tests (Vitest) — form validation, auth context
+- [ ] Wire up search bar — add `onChange` handler and results UI (component: `AppHeader`, input is currently uncontrolled)
 
 ## Coding conventions
 

@@ -4,7 +4,7 @@ import { Features } from '@/components/sections/Features'
 import { Hero } from '@/components/sections/Hero'
 import { Pricing } from '@/components/sections/Pricing'
 
-export function Home() {
+export function Landing() {
   return (
     <>
       <Navbar />

@@ -24,7 +24,7 @@ export function Register() {
   const navigate = useNavigate()
 
   if (isAuthenticated) {
-    navigate('/dashboard', { replace: true })
+    navigate('/home', { replace: true })
     return null
   }
   const countryList = useMemo(() => {
@@ -65,7 +65,7 @@ export function Register() {
     setLoading(true)
     try {
       await register(email, password, firstName, lastName, country)
-      navigate('/dashboard')
+      navigate('/home')
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
     } finally {

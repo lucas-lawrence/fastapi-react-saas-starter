@@ -10,7 +10,7 @@ export function Login() {
   const navigate = useNavigate()
 
   if (isAuthenticated) {
-    navigate('/dashboard', { replace: true })
+    navigate('/home', { replace: true })
     return null
   }
   const [email, setEmail] = useState('')
@@ -24,7 +24,7 @@ export function Login() {
     setLoading(true)
     try {
       await login(email, password)
-      navigate('/dashboard')
+      navigate('/home')
     } catch {
       setError('Invalid email or password.')
     } finally {
