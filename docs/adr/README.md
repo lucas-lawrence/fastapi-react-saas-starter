@@ -19,3 +19,4 @@ Each ADR documents a significant decision made during development — what we ch
 | [0002](0002-auth-strategy.md) | Authentication strategy | Accepted |
 | [0003](0003-deployment-strategy.md) | Deployment strategy | Pending |
 | [0004](0004-graphql-over-rest.md) | GraphQL over REST | Accepted |
+| [0005](0005-uuid-v7-primary-keys.md) | UUID v7 primary keys | Accepted |
