@@ -9,7 +9,7 @@ Needed a registration page that collects enough information to identify the user
 ### Fields collected at registration
 - **First name** + **Last name** — required, side-by-side
 - **Email** — required
-- **Country** — required, ISO 3166-1 alpha-2 code stored; full country list from `i18n-iso-countries` (249 countries, alphabetically sorted)
+- **Country** — required, ISO 3166-1 alpha-2 code stored; searchable combobox (`CountrySelect` component) — type to filter, click to select; list from `i18n-iso-countries` (249 countries)
 - **Password** + **Confirm password** — required
 
 ### Validation layers

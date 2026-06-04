@@ -67,3 +67,4 @@ npx shadcn@latest add <component>
 - [FE 0004 — Registration flow](docs/frontend/0004-registration-flow.md)
 - [FE 0005 — App shell](docs/frontend/0005-app-shell.md)
 - [FE 0006 — Page titles](docs/frontend/0006-page-titles.md)
+- [FE 0007 — Settings pages](docs/frontend/0007-settings.md)

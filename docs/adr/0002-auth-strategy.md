@@ -14,6 +14,13 @@ Needed a stateless, scalable auth system suitable for a SaaS product with good U
 - **Logout** invalidates the refresh token in the DB, terminating the session server-side
 - **bcrypt** — passwords are hashed with bcrypt (cost factor 12, default); used directly without passlib
 
+## Profile updates (server-side)
+
+- **`updateUser` mutation** — authenticated users can update `firstName`, `lastName`, `email`, `country`, and `password`
+- All fields are optional (`strawberry.UNSET`); only provided fields are written
+- Email changes follow the same validation rules as registration (format, domain dot, uniqueness, lowercase)
+- Password change requires `currentPassword` for verification before accepting `newPassword`; minimum 8 characters enforced
+
 ## Registration validation (server-side)
 
 - **Email** — validated with `email-validator`; must have a dot in the domain (rejects `email@email`); normalised and lowercased before storing
