@@ -1,13 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
-import countries from 'i18n-iso-countries'
-import enLocale from 'i18n-iso-countries/langs/en.json'
+import { useEffect, useState } from 'react'
 import { gql } from '@/lib/api'
 import { useAuth } from '@/context/AuthContext'
 import { Button } from '@/components/ui/button'
+import { CountrySelect } from '@/components/ui/CountrySelect'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-
-countries.registerLocale(enLocale)
 
 const UPDATE_PROFILE_MUTATION = `
   mutation UpdateProfile($firstName: String, $lastName: String, $email: String, $country: String) {
@@ -24,13 +21,6 @@ const UPDATE_PROFILE_MUTATION = `
 export function ProfileSettings() {
   useEffect(() => { document.title = 'SaaS · Settings · Profile' }, [])
   const { user, refreshUser } = useAuth()
-
-  const countryList = useMemo(() => {
-    const names = countries.getNames('en', { select: 'official' })
-    return Object.entries(names)
-      .map(([code, name]) => ({ code, name }))
-      .sort((a, b) => a.name.localeCompare(b.name))
-  }, [])
 
   const [firstName, setFirstName] = useState(user?.firstName ?? '')
   const [lastName, setLastName] = useState(user?.lastName ?? '')
@@ -103,17 +93,7 @@ export function ProfileSettings() {
 
       <div className="space-y-1.5">
         <Label htmlFor="country">Country</Label>
-        <select
-          id="country"
-          value={country}
-          onChange={e => setCountry(e.target.value)}
-          className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-        >
-          <option value="">Select a country</option>
-          {countryList.map(c => (
-            <option key={c.code} value={c.code}>{c.name}</option>
-          ))}
-        </select>
+        <CountrySelect value={country} onChange={setCountry} />
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}

@@ -1,15 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import countries from 'i18n-iso-countries'
-import enLocale from 'i18n-iso-countries/langs/en.json'
 import zxcvbn from 'zxcvbn'
 
 import { Button } from '@/components/ui/button'
+import { CountrySelect } from '@/components/ui/CountrySelect'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/context/AuthContext'
-
-countries.registerLocale(enLocale)
 
 const STRENGTH_CONFIG = [
   { label: 'Very weak',   color: 'bg-red-500' },
@@ -28,12 +25,6 @@ export function Register() {
     navigate('/home', { replace: true })
     return null
   }
-  const countryList = useMemo(() => {
-    const names = countries.getNames('en', { select: 'official' })
-    return Object.entries(names)
-      .map(([code, name]) => ({ code, name }))
-      .sort((a, b) => a.name.localeCompare(b.name))
-  }, [])
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -126,18 +117,7 @@ export function Register() {
 
           <div className="space-y-1.5">
             <Label htmlFor="country">Country</Label>
-            <select
-              id="country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-              className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="">Select a country</option>
-              {countryList.map((c) => (
-                <option key={c.code} value={c.code}>{c.name}</option>
-              ))}
-            </select>
+            <CountrySelect value={country} onChange={setCountry} />
           </div>
 
           <div className="space-y-1.5">
