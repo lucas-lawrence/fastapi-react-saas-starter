@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, X } from 'lucide-react'
+import { LayoutDashboard, Settings, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { label: 'Settings', href: '/settings', icon: Settings },
 ]
 
 interface AppSidebarProps {
@@ -48,7 +49,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
               onClick={onClose}
               className={cn(
                 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
-                location.pathname === item.href
+                location.pathname.startsWith(item.href)
                   ? 'bg-muted font-medium text-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               )}

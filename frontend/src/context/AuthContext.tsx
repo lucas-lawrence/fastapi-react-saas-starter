@@ -31,6 +31,7 @@ const ME_QUERY = `
       email
       firstName
       lastName
+      country
     }
   }
 `
@@ -40,6 +41,7 @@ export interface AuthUser {
   email: string
   firstName: string | null
   lastName: string | null
+  country: string | null
 }
 
 interface AuthContextValue {
@@ -49,6 +51,7 @@ interface AuthContextValue {
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   register: (email: string, password: string, firstName?: string, lastName?: string, country?: string) => Promise<void>
+  refreshUser: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -106,6 +109,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(false)
   }
 
+  const refreshUser = async () => {
+    const data = await gql<{ me: AuthUser | null }>(ME_QUERY)
+    if (data.me) setUser(data.me)
+  }
+
   const register = async (email: string, password: string, firstName?: string, lastName?: string, country?: string) => {
     await gql(REGISTER_MUTATION, {
       email,
@@ -118,7 +126,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, userLoading, login, logout, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, userLoading, login, logout, register, refreshUser }}>
       {children}
     </AuthContext.Provider>
   )
