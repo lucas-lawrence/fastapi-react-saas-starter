@@ -36,6 +36,25 @@ docker compose up -d --build
 docker compose exec backend uv run alembic upgrade head
 ```
 
+## Running backend tests
+
+**One-time setup — create the test database:**
+```bash
+docker compose exec db psql -U postgres -c "CREATE DATABASE app_test;"
+```
+
+**Run the full test suite:**
+```bash
+docker compose exec backend uv run pytest
+```
+
+**Run a single file:**
+```bash
+docker compose exec backend uv run pytest tests/test_auth.py -v
+```
+
+Tests use a separate `app_test` database and truncate all tables between each test. No data from the dev database is touched.
+
 ## Common workflows
 
 **Generate a new migration after changing a model:**

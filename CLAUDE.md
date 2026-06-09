@@ -13,7 +13,7 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 - [ ] Landing page navbar: replace Sign In + Get Started with a single "Go to dashboard" button when user is authenticated (Option 1). Button label TBD once dashboard naming is decided.
 - [x] Build register page
 - [ ] Implement silent refresh token rotation on the frontend (auto-refresh when access token expires)
-- [ ] Set up backend tests (pytest) — register, login, me query
+- [x] Set up backend tests (pytest) — register, login, me query, refresh, logout, updateUser
 - [ ] Set up frontend tests (Vitest) — form validation, auth context
 - [ ] Wire up search bar — add `onChange` handler and results UI (component: `AppHeader`, input is currently uncontrolled)
 
