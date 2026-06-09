@@ -79,6 +79,9 @@ npx shadcn@latest add <component>
 - [ADR 0004 — GraphQL over REST](docs/adr/0004-graphql-over-rest.md)
 - [ADR 0005 — UUID v7 primary keys](docs/adr/0005-uuid-v7-primary-keys.md)
 
+**Backend decisions**
+- [BE 0001 — Testing strategy](docs/backend/0001-testing.md)
+
 **Frontend decisions**
 - [FE 0001 — Framework and UI library](docs/frontend/0001-framework-and-ui.md)
 - [FE 0002 — Dark mode strategy](docs/frontend/0002-dark-mode.md)
