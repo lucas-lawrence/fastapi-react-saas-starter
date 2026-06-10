@@ -1,4 +1,4 @@
-# 0001 — Testing Strategy
+# 0005 — Testing Strategy
 
 ## Context
 
@@ -63,4 +63,4 @@ docker compose exec backend uv run pytest tests/test_auth.py  # single file
 
 ## Related
 
-- [ADR 0002 — Auth strategy](../../docs/adr/0002-auth-strategy.md)
+- [BE 0002 — Auth strategy](0002-auth-strategy.md)

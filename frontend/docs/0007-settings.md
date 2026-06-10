@@ -45,6 +45,6 @@ Reusable combobox at `src/components/ui/CountrySelect.tsx`. Used in both registr
 - Email change takes effect immediately; the current JWT still contains the old email as `sub` and will work until it expires (60 min max), after which the user must log in again with the new email
 
 ## Related
-- [ADR 0002 — Auth strategy](../../backend/docs/0005-auth-strategy.md)
+- [ADR 0002 — Auth strategy](../../backend/docs/0002-auth-strategy.md)
 - [FE 0004 — Registration flow](0004-registration-flow.md)
 - [FE 0005 — App shell](0005-app-shell.md)

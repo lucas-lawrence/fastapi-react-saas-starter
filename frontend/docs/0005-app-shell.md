@@ -68,4 +68,4 @@ Both login and register redirect to `/home` after success. The logo link and ses
 ## Related
 - [FE 0003 — Auth token storage](0003-auth-token-storage.md)
 - [FE 0004 — Registration flow](0004-registration-flow.md)
-- [ADR 0002 — Auth strategy](../../backend/docs/0005-auth-strategy.md)
+- [ADR 0002 — Auth strategy](../../backend/docs/0002-auth-strategy.md)
