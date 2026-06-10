@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import zxcvbn from 'zxcvbn'
 import { gql } from '@/lib/api'
+import { validatePassword } from '@/lib/validation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { PasswordStrengthIndicator } from '@/components/ui/PasswordStrengthIndicator'
 
 const UPDATE_PASSWORD_MUTATION = `
   mutation UpdatePassword($currentPassword: String!, $newPassword: String!) {
@@ -12,14 +13,6 @@ const UPDATE_PASSWORD_MUTATION = `
     }
   }
 `
-
-const STRENGTH_CONFIG = [
-  { label: 'Very weak',   color: 'bg-red-500' },
-  { label: 'Weak',        color: 'bg-orange-500' },
-  { label: 'Fair',        color: 'bg-yellow-500' },
-  { label: 'Strong',      color: 'bg-blue-500' },
-  { label: 'Very strong', color: 'bg-green-500' },
-]
 
 export function PasswordSettings() {
   useEffect(() => { document.title = 'SaaS · Settings · Password' }, [])
@@ -31,20 +24,13 @@ export function PasswordSettings() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const strength = newPassword ? zxcvbn(newPassword) : null
-  const strengthScore = strength?.score ?? -1
-  const strengthConfig = strengthScore >= 0 ? STRENGTH_CONFIG[strengthScore] : null
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     setSuccess(false)
-    if (newPassword !== confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
-    if (strengthScore < 2) {
-      setError('Please choose a stronger password.')
+    const pwError = validatePassword(newPassword, confirmPassword)
+    if (pwError) {
+      setError(pwError)
       return
     }
     setLoading(true)
@@ -90,19 +76,7 @@ export function PasswordSettings() {
           required
           autoComplete="new-password"
         />
-        {strengthConfig && (
-          <div className="space-y-1">
-            <div className="flex gap-1">
-              {STRENGTH_CONFIG.map((s, i) => (
-                <div
-                  key={s.label}
-                  className={`h-1 flex-1 rounded-full transition-colors ${i <= strengthScore ? strengthConfig.color : 'bg-muted'}`}
-                />
-              ))}
-            </div>
-            <p className="text-xs text-muted-foreground">{strengthConfig.label}</p>
-          </div>
-        )}
+        <PasswordStrengthIndicator password={newPassword} />
       </div>
 
       <div className="space-y-1.5">
