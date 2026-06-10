@@ -1,4 +1,4 @@
-# 0002 — Authentication Strategy
+# 0005 — Authentication Strategy
 
 **Status:** Accepted
 

@@ -15,4 +15,4 @@ Refresh tokens need to survive page reloads and browser restarts to keep the use
 - A more secure alternative is `HttpOnly` cookies for the refresh token (not accessible to JS at all). This is the recommended approach when the frontend and backend share a domain. Worth revisiting before production.
 
 ## Related
-- See [ADR 0002](../../docs/adr/0002-auth-strategy.md) for the backend token strategy (rotation, expiry).
+- See [ADR 0002](../../backend/docs/0005-auth-strategy.md) for the backend token strategy (rotation, expiry).

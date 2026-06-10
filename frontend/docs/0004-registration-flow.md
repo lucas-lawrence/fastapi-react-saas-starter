@@ -39,5 +39,5 @@ Password validation logic (match check + strength gate) lives in `src/lib/valida
 - Country is required on the form but optional in the backend mutation — enforcement is frontend-only
 
 ## Related
-- [ADR 0002 — Auth strategy](../../docs/adr/0002-auth-strategy.md)
+- [ADR 0002 — Auth strategy](../../backend/docs/0005-auth-strategy.md)
 - [FE 0003 — Auth token storage](0003-auth-token-storage.md)
