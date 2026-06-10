@@ -28,7 +28,7 @@ Fields: first name, last name, email, country. Pre-filled from `AuthContext.user
 
 ### Password settings
 
-Fields: current password, new password (with zxcvbn strength meter), confirm new password. Same strength rules as registration (score ≥ 2). Current password is verified server-side before the new hash is stored.
+Fields: current password, new password (with zxcvbn strength meter via `PasswordStrengthIndicator`), confirm new password. Strength rules are shared with registration via `validatePassword()` in `src/lib/validation.ts` — both pages use the same threshold (`PASSWORD_MIN_SCORE = 2`). Current password is verified server-side before the new hash is stored.
 
 ### CountrySelect component
 

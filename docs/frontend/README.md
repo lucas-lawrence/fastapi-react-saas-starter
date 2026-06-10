@@ -15,3 +15,4 @@ These are not architecture decisions (those live in `../adr/`) but deliberate ch
 | [0005](0005-app-shell.md) | App shell (header, sidebar, layout) |
 | [0006](0006-page-titles.md) | Page titles |
 | [0007](0007-settings.md) | Settings pages (profile + password) |
+| [0008](0008-testing.md) | Frontend testing (Vitest) |

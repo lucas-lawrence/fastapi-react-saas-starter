@@ -27,7 +27,10 @@ Needed a registration page that collects enough information to identify the user
 Register mutation → auto-login (calls `login` mutation with same credentials) → redirect to `/home`. No email verification gate at this stage (see pending tasks in CLAUDE.md).
 
 ### Password strength meter
-`zxcvbn` runs client-side as the user types, showing a 5-segment bar (red → green) with a label. Submission is blocked if score < 2. This is UX-only — the backend does not enforce complexity beyond minimum length.
+`zxcvbn` runs client-side as the user types via `PasswordStrengthIndicator` (`src/components/ui/PasswordStrengthIndicator.tsx`) — a reusable component that accepts the password string and renders a 5-segment bar (red → green) with a label. Submission is blocked if score < 2. This is UX-only — the backend does not enforce complexity beyond minimum length.
+
+### Shared validation
+Password validation logic (match check + strength gate) lives in `src/lib/validation.ts` (`validatePassword`, `PASSWORD_MIN_SCORE`). Registration and the password-change settings page both import from there — any change to the rules applies everywhere.
 
 ## Consequences
 
