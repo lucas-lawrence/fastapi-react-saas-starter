@@ -73,7 +73,7 @@ npx shadcn@latest add <component>
 ## Docs
 
 **Shared decisions**
-- [ADR 0003 — Deployment strategy](docs/adr/0003-deployment-strategy.md)
+- [0001 — Deployment strategy](docs/0001-deployment-strategy.md)
 
 **Backend decisions**
 - [BE 0001 — Core tech stack](backend/docs/0001-tech-stack.md)

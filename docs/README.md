@@ -1,6 +1,6 @@
-# Architecture Decision Records
+# Shared Decisions
 
-Each ADR documents a significant decision made during development — what we chose, why, and what trade-offs we accepted.
+Cross-cutting decisions that apply to both frontend and backend — typically infrastructure, deployment, or integration boundaries.
 
 ## Format
 
@@ -15,4 +15,4 @@ Each ADR documents a significant decision made during development — what we ch
 
 | # | Title | Status |
 |---|---|---|
-| [0003](0003-deployment-strategy.md) | Deployment strategy | Pending |
+| [0001](0001-deployment-strategy.md) | Deployment strategy | Pending |

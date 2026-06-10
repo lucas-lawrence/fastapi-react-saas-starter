@@ -1,4 +1,4 @@
-# 0003 — Deployment Strategy
+# 0001 — Deployment Strategy
 
 **Status:** Pending (not yet implemented)
 
