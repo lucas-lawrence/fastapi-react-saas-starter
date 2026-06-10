@@ -80,13 +80,14 @@ npx shadcn@latest add <component>
 - [ADR 0005 — UUID v7 primary keys](docs/adr/0005-uuid-v7-primary-keys.md)
 
 **Backend decisions**
-- [BE 0001 — Testing strategy](docs/backend/0001-testing.md)
+- [BE 0001 — Testing strategy](backend/docs/0001-testing.md)
 
 **Frontend decisions**
-- [FE 0001 — Framework and UI library](docs/frontend/0001-framework-and-ui.md)
-- [FE 0002 — Dark mode strategy](docs/frontend/0002-dark-mode.md)
-- [FE 0003 — Auth token storage](docs/frontend/0003-auth-token-storage.md)
-- [FE 0004 — Registration flow](docs/frontend/0004-registration-flow.md)
-- [FE 0005 — App shell](docs/frontend/0005-app-shell.md)
-- [FE 0006 — Page titles](docs/frontend/0006-page-titles.md)
-- [FE 0007 — Settings pages](docs/frontend/0007-settings.md)
+- [FE 0001 — Framework and UI library](frontend/docs/0001-framework-and-ui.md)
+- [FE 0002 — Dark mode strategy](frontend/docs/0002-dark-mode.md)
+- [FE 0003 — Auth token storage](frontend/docs/0003-auth-token-storage.md)
+- [FE 0004 — Registration flow](frontend/docs/0004-registration-flow.md)
+- [FE 0005 — App shell](frontend/docs/0005-app-shell.md)
+- [FE 0006 — Page titles](frontend/docs/0006-page-titles.md)
+- [FE 0007 — Settings pages](frontend/docs/0007-settings.md)
+- [FE 0008 — Frontend testing](frontend/docs/0008-testing.md)
