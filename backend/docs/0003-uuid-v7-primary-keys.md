@@ -1,4 +1,4 @@
-# 0005 — UUID v7 Primary Keys
+# 0003 — UUID v7 Primary Keys
 
 **Status:** Accepted
 

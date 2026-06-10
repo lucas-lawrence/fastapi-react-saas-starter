@@ -76,11 +76,10 @@ npx shadcn@latest add <component>
 - [ADR 0001 — Tech stack](docs/adr/0001-tech-stack.md)
 - [ADR 0002 — Auth strategy](docs/adr/0002-auth-strategy.md)
 - [ADR 0003 — Deployment strategy](docs/adr/0003-deployment-strategy.md)
-- [ADR 0004 — GraphQL over REST](docs/adr/0004-graphql-over-rest.md)
-- [ADR 0005 — UUID v7 primary keys](docs/adr/0005-uuid-v7-primary-keys.md)
-
 **Backend decisions**
 - [BE 0001 — Testing strategy](backend/docs/0001-testing.md)
+- [BE 0002 — GraphQL over REST](backend/docs/0002-graphql-over-rest.md)
+- [BE 0003 — UUID v7 primary keys](backend/docs/0003-uuid-v7-primary-keys.md)
 
 **Frontend decisions**
 - [FE 0001 — Framework and UI library](frontend/docs/0001-framework-and-ui.md)

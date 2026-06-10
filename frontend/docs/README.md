@@ -2,7 +2,7 @@
 
 Documents design and technical decisions made on the frontend — component choices, UX conventions, styling rules, and token/state management patterns.
 
-These are not architecture decisions (those live in `../adr/`) but deliberate choices worth recording so they don't get second-guessed or undone later.
+These are not architecture decisions (those live in `../../docs/adr/`) but deliberate choices worth recording so they don't get second-guessed or undone later.
 
 ## Index
 

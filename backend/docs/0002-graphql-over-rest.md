@@ -1,4 +1,4 @@
-# 0004 — GraphQL over REST
+# 0002 — GraphQL over REST
 
 **Status:** Accepted
 

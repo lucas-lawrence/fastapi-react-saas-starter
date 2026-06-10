@@ -63,4 +63,4 @@ docker compose exec backend uv run pytest tests/test_auth.py  # single file
 
 ## Related
 
-- [ADR 0002 — Auth strategy](../adr/0002-auth-strategy.md)
+- [ADR 0002 — Auth strategy](../../docs/adr/0002-auth-strategy.md)
