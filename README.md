@@ -2,6 +2,12 @@
 
 A full-stack, multi-tenant SaaS starter — batteries included. Clone it, rename it, build your product on top.
 
+## Preview
+
+![Landing page](docs/screenshots/landing.png)
+![Home page](docs/screenshots/home.png)
+![Create organization](docs/screenshots/create-org.png)
+
 ## What's included
 
 | Feature | Status |
