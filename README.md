@@ -36,7 +36,7 @@ A full-stack, multi-tenant SaaS starter — batteries included. Clone it, rename
 
 ```bash
 # 1. Clone and start all containers
-git clone https://github.com/lucas-lawrence/fastapi-saas-starter.git
+git clone https://github.com/lucas-lawrence/fastapi-react-saas-starter.git
 cd fastapi-saas-starter
 docker compose up -d --build
 
