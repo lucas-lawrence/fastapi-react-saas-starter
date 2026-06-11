@@ -1,5 +1,13 @@
 Add a column to an existing model. Follow every step in order.
 
+## Gather context first
+
+Before writing any code, read these files to understand existing patterns:
+
+- `backend/app/models/<model>.py` — the model being changed
+- `backend/app/graphql/types.py` — the corresponding GraphQL type
+- Every file under `backend/app/graphql/mutations/` and `backend/app/graphql/queries/` that returns this type — to find all constructor calls that need updating
+
 ## Steps
 
 1. **Update the SQLAlchemy model** in `backend/app/models/<model>.py`
@@ -21,6 +29,6 @@ Add a column to an existing model. Follow every step in order.
    ```
    > After running, verify with: `docker compose exec db psql -U postgres -d app -c "\d <table>"`
 
-5. **Update the ER diagram** at `docs/data/erd.md`
+5. **Update the ER diagram** at `backend/docs/data/erd.md`
 
 6. **Commit** all changed files together

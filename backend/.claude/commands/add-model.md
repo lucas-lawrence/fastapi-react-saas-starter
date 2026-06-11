@@ -1,5 +1,16 @@
 Add a new SQLAlchemy model with GraphQL support. Follow every step in order.
 
+## Gather context first
+
+Before writing any code, read these files to understand existing patterns:
+
+- `backend/app/models/user.py` — model structure and mixin usage
+- `backend/app/models/__init__.py` — how models are registered
+- `backend/app/graphql/types.py` — how GraphQL types are defined
+- `backend/app/graphql/schema.py` — how queries and mutations are wired in
+- `backend/app/graphql/queries/user.py` — example query
+- `backend/app/graphql/mutations/user.py` — example mutation
+
 ## Steps
 
 1. **Create the model** at `backend/app/models/<model>.py`
@@ -37,6 +48,6 @@ Add a new SQLAlchemy model with GraphQL support. Follow every step in order.
    ```
    > After running, verify with: `docker compose exec db psql -U postgres -d app -c "\d <table>"`
 
-7. **Update the ER diagram** at `docs/data/erd.md` — add the new entity and its relationships
+7. **Update the ER diagram** at `backend/docs/data/erd.md` — add the new entity and its relationships
 
 8. **Commit** all changed files together
