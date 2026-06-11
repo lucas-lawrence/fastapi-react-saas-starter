@@ -10,7 +10,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   if (!isAuthenticated) {
-    navigate('/login', { replace: true })
+    navigate('/', { replace: true })
     return null
   }
 
