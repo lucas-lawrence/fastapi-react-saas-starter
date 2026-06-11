@@ -23,10 +23,10 @@ export function Settings() {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  'block px-3 py-2 rounded-lg text-sm transition-colors',
+                  'block px-3 py-2 rounded-xl text-sm transition-colors',
                   location.pathname === item.href
-                    ? 'bg-muted font-medium text-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                    ? 'bg-black/6 dark:bg-white/8 font-medium text-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-black/4 dark:hover:bg-white/4'
                 )}
               >
                 {item.label}

@@ -52,7 +52,7 @@ export function ProfileSettings() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="rounded-2xl border border-black/6 dark:border-white/6 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6 space-y-4">
       <div>
         <h2 className="text-base font-semibold">Profile</h2>
         <p className="text-sm text-muted-foreground">Update your personal information.</p>
@@ -99,7 +99,7 @@ export function ProfileSettings() {
       {error && <p className="text-sm text-destructive">{error}</p>}
       {success && <p className="text-sm text-green-500">Profile updated.</p>}
 
-      <Button type="submit" disabled={loading}>
+      <Button type="submit" className="rounded-full" disabled={loading}>
         {loading ? 'Saving...' : 'Save changes'}
       </Button>
     </form>

@@ -48,7 +48,7 @@ export function PasswordSettings() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="rounded-2xl border border-black/6 dark:border-white/6 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6 space-y-4">
       <div>
         <h2 className="text-base font-semibold">Password</h2>
         <p className="text-sm text-muted-foreground">Change your account password.</p>
@@ -94,7 +94,7 @@ export function PasswordSettings() {
       {error && <p className="text-sm text-destructive">{error}</p>}
       {success && <p className="text-sm text-green-500">Password updated.</p>}
 
-      <Button type="submit" disabled={loading}>
+      <Button type="submit" className="rounded-full" disabled={loading}>
         {loading ? 'Saving...' : 'Update password'}
       </Button>
     </form>

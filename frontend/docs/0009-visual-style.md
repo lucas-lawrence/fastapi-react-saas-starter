@@ -52,6 +52,39 @@ The palette stays within the existing shadcn/Tailwind token system — no custom
 
 The violet/blue gradient on the hero heading (`from-violet-500 via-blue-500 to-cyan-500`) remains the brand accent. Do not introduce additional accent gradients without updating this doc.
 
+### App header (authenticated shell)
+
+The authenticated `AppHeader` uses the same glass treatment as the landing navbar but full-width:
+
+- `sticky top-0 bg-background/85 backdrop-blur-xl border-b border-black/6`
+- **Search input** — `rounded-full` pill with `border border-black/8`
+- **Icon buttons** (theme, notifications, settings) — grouped inside a single `rounded-full border bg-muted/30` pill container
+- **Avatar dropdown** — `rounded-2xl bg-white/90 backdrop-blur-xl border border-black/8 shadow-xl`; menu items use `rounded-xl`
+
+The app shell header is intentionally **full-width** (not a floating pill like the landing navbar). It anchors the page and provides space for search + grouped actions.
+
+### App sidebar
+
+- `bg-background/95 backdrop-blur-xl border-r border-black/6`
+- Close button: `rounded-full`
+- Nav items: `rounded-xl`; active state uses `bg-black/6 dark:bg-white/8` (no heavy fill)
+
+### Page content cards
+
+App pages wrap their main content sections in glass cards:
+
+```tsx
+<div className="rounded-2xl border border-black/6 dark:border-white/6 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6">
+  ...
+</div>
+```
+
+This is lighter than the auth page cards (no `shadow-lg`) — the app shell background is already neutral, so heavy shadows would feel out of place.
+
+### Submit / primary action buttons inside app pages
+
+Use `rounded-full` on form submit buttons to maintain pill language consistency throughout the product.
+
 ## Consequences
 
 - All new landing page sections should inherit the gradient background naturally — no per-section background needed
