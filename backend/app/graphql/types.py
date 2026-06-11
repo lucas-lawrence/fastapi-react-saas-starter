@@ -11,6 +11,13 @@ class UserType:
     is_active: bool = strawberry.field(description="Whether the account is active.")
 
 
+@strawberry.type(description="An organization (tenant). Members access it via its unique subdomain slug.")
+class OrganizationType:
+    id: strawberry.ID = strawberry.field(description="Unique identifier (UUID v7).")
+    name: str = strawberry.field(description="Display name of the organization.")
+    slug: str = strawberry.field(description="Unique subdomain handle (e.g. 'acme' for acme.saas.com). Immutable after creation.")
+
+
 @strawberry.type(description="Access and refresh token pair returned after a successful login or token refresh.")
 class TokenPair:
     access_token: str = strawberry.field(description="Short-lived JWT used to authenticate API requests. Valid for 60 minutes. Pass as `Authorization: Bearer <token>`.")
