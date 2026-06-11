@@ -87,6 +87,12 @@ async def login_user(
     return data["data"]["login"]
 
 
+DELETE_USER = """
+mutation DeleteUser {
+  deleteUser
+}
+"""
+
 CREATE_ORGANIZATION = """
 mutation CreateOrganization($name: String!, $slug: String!) {
   createOrganization(name: $name, slug: $slug) {

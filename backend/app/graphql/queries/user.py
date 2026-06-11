@@ -24,7 +24,7 @@ class UserQuery:
         except JWTError:
             return None
 
-        result = await db.execute(select(User).where(User.email == email))
+        result = await db.execute(select(User).where(User.email == email, User.deleted_at.is_(None)))
         user = result.scalar_one_or_none()
         if not user:
             return None

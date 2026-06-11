@@ -48,7 +48,7 @@ class AuthMutation:
     @strawberry.mutation(description="Sign in with email and password. Returns an access token and a refresh token.")
     async def login(self, email: str, password: str, info: Info) -> TokenPair:
         db = info.context["db"]
-        result = await db.execute(select(User).where(User.email == email.lower()))
+        result = await db.execute(select(User).where(User.email == email.lower(), User.deleted_at.is_(None)))
         user = result.scalar_one_or_none()
         if not user or not verify_password(password, user.hashed_password):
             raise ValueError("Invalid credentials")
@@ -75,7 +75,7 @@ class AuthMutation:
         if not db_token or db_token.expires_at < datetime.now(timezone.utc):
             raise ValueError("Invalid or expired refresh token")
 
-        user_result = await db.execute(select(User).where(User.id == db_token.user_id))
+        user_result = await db.execute(select(User).where(User.id == db_token.user_id, User.deleted_at.is_(None)))
         user = user_result.scalar_one_or_none()
 
         await db.delete(db_token)

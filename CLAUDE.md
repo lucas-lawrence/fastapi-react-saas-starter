@@ -4,8 +4,10 @@ Project conventions and pending work for Claude Code to pick up across sessions.
 
 ## Pending tasks
 
-- [ ] Enforce `deleted_at IS NULL` on all list queries — never return soft-deleted records in collections
+- [x] Enforce `deleted_at IS NULL` on all User lookups (login, me, get_current_user, refresh)
+- [ ] Enforce `deleted_at IS NULL` on all list queries for future models — never return soft-deleted records in collections
 - [ ] Return 404 when a single record lookup hits a soft-deleted row
+- [x] Add `deleteUser` mutation — soft-deletes account, hard-deletes sessions immediately; email reserved for 30-day grace period
 - [ ] Build nightly cleanup job (APScheduler inside FastAPI) that: (1) hard-deletes rows where `deleted_at < now() - interval '30 days'`, (2) deletes expired refresh tokens where `expires_at < now()`
 - [ ] Handle GDPR erasure requests — immediate hard delete, bypassing the 30-day grace period
 - [x] Add `updateUser` mutation so users can set first_name, last_name, email, country, and password
