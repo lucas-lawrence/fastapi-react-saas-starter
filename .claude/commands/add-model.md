@@ -53,7 +53,9 @@ Before writing any code, read these files to understand existing patterns:
 
 7. **Update the ER diagram** at `backend/docs/data/erd.md` — add the new entity and its relationships
 
-8. **Write tests** in `backend/tests/test_<model>.py`:
+8. **Complete CRUDL** — run `/crudl <model>` to implement and test all five operations (Create, Read, Update, Delete, List). Every model must have all five before it is considered done.
+
+   Standalone test guidance is in that command, but the short version:
    - Add GraphQL query/mutation strings and a helper function to `backend/tests/helpers.py`
    - Add the new table(s) to the `TRUNCATE` in `backend/tests/conftest.py`
    - Cover: success path, validation errors, auth guards, and key edge cases
