@@ -36,11 +36,12 @@ export function AppHeader({ onMenuToggle }: AppHeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 h-14 border-b bg-background/80 backdrop-blur-md flex items-center px-4 gap-3">
+    <header className="sticky top-0 z-50 h-14 border-b border-black/6 dark:border-white/6 bg-background/85 backdrop-blur-xl flex items-center px-4 gap-3">
+
       {/* Left: hamburger + logo */}
       <button
         onClick={onMenuToggle}
-        className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        className="w-8 h-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
         aria-label="Open menu"
       >
         <Menu className="w-4 h-4" />
@@ -55,37 +56,37 @@ export function AppHeader({ onMenuToggle }: AppHeaderProps) {
           <input
             type="search"
             placeholder="Search..."
-            className="w-full h-8 pl-8 pr-3 rounded-lg border bg-muted/50 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full h-8 pl-8 pr-3 rounded-full border border-black/8 dark:border-white/8 bg-muted/40 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring transition-colors"
           />
         </div>
       </div>
 
-      {/* Right: actions + avatar */}
-      <div className="ml-auto flex items-center gap-1">
-        <button
-          onClick={toggle}
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
+      {/* Right: icon pill group + avatar */}
+      <div className="ml-auto flex items-center gap-2">
 
-        <button
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label="Notifications"
-        >
-          <Bell className="w-4 h-4" />
-        </button>
-
-        <Link
-          to="/settings"
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label="Settings"
-        >
-          <Settings className="w-4 h-4" />
-        </Link>
-
-        <div className="w-px h-4 bg-border mx-1" />
+        {/* Grouped icon buttons */}
+        <div className="flex items-center gap-0.5 rounded-full border border-black/8 dark:border-white/8 bg-muted/30 px-1 py-1">
+          <button
+            onClick={toggle}
+            className="w-7 h-7 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            className="w-7 h-7 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            aria-label="Notifications"
+          >
+            <Bell className="w-3.5 h-3.5" />
+          </button>
+          <Link
+            to="/settings"
+            className="w-7 h-7 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            aria-label="Settings"
+          >
+            <Settings className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
         {/* Avatar + dropdown */}
         <div className="relative" ref={ref}>
@@ -93,22 +94,24 @@ export function AppHeader({ onMenuToggle }: AppHeaderProps) {
             onClick={() => setOpen(o => !o)}
             className="w-8 h-8 rounded-full bg-primary text-primary-foreground text-xs font-semibold flex items-center justify-center hover:opacity-90 transition-opacity"
           >
-            {userLoading ? <span className="w-4 h-4 rounded-full bg-primary-foreground/30 animate-pulse" /> : user ? getInitials(user) : '?'}
+            {userLoading
+              ? <span className="w-4 h-4 rounded-full bg-primary-foreground/30 animate-pulse" />
+              : user ? getInitials(user) : '?'}
           </button>
 
           {open && (
-            <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border bg-popover shadow-lg overflow-hidden z-50">
+            <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl border border-black/8 dark:border-white/10 bg-white/90 dark:bg-black/90 backdrop-blur-xl shadow-xl overflow-hidden z-50">
               {userLoading ? (
-                <div className="flex items-center gap-3 p-4 bg-muted/50">
+                <div className="flex items-center gap-3 p-4">
                   <div className="w-10 h-10 rounded-full bg-muted animate-pulse shrink-0" />
                   <div className="flex-1 space-y-2">
-                    <div className="h-3 bg-muted rounded animate-pulse w-2/3" />
-                    <div className="h-3 bg-muted rounded animate-pulse w-full" />
+                    <div className="h-3 bg-muted rounded-full animate-pulse w-2/3" />
+                    <div className="h-3 bg-muted rounded-full animate-pulse w-full" />
                   </div>
                 </div>
               ) : user ? (
-                <div className="flex items-center gap-3 p-4 bg-muted/50">
-                  <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-3 p-4">
+                  <div className="w-9 h-9 rounded-full bg-primary text-primary-foreground text-sm font-semibold flex items-center justify-center shrink-0">
                     {getInitials(user)}
                   </div>
                   <div className="min-w-0">
@@ -119,11 +122,14 @@ export function AppHeader({ onMenuToggle }: AppHeaderProps) {
                   </div>
                 </div>
               ) : null}
+
+              <div className="border-t border-black/6 dark:border-white/6 mx-2" />
+
               <div className="p-1.5">
                 <Link
                   to="/profile"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm hover:bg-muted transition-colors"
+                  className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
                 >
                   <User className="w-4 h-4 text-muted-foreground shrink-0" />
                   Profile
@@ -131,17 +137,19 @@ export function AppHeader({ onMenuToggle }: AppHeaderProps) {
                 <Link
                   to="/settings"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm hover:bg-muted transition-colors"
+                  className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
                 >
                   <Settings className="w-4 h-4 text-muted-foreground shrink-0" />
                   Account settings
                 </Link>
               </div>
-              <div className="border-t" />
+
+              <div className="border-t border-black/6 dark:border-white/6 mx-2" />
+
               <div className="p-1.5">
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-destructive hover:bg-muted transition-colors"
+                  className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-destructive hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
                 >
                   <LogOut className="w-4 h-4 shrink-0" />
                   Log out
