@@ -74,7 +74,7 @@ export function Pricing() {
         </AnimationContainer>
 
         <AnimationContainer delay={0.1} className="flex justify-center mb-12">
-          <div className="flex items-center rounded-lg border p-1 gap-1 bg-muted/30">
+          <div className="flex items-center rounded-full border p-1 gap-1 bg-muted/30">
             <button
               onClick={() => setBilling('monthly')}
               className={cn(

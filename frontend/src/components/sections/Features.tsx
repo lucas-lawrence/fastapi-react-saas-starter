@@ -59,7 +59,7 @@ export function Features() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {FEATURES.map((feature, i) => (
             <AnimationContainer key={feature.title} delay={i * 0.1} className={cn('group', feature.className)}>
-              <div className="h-full rounded-2xl border bg-card p-6 hover:border-primary/50 hover:shadow-md transition-all duration-300">
+              <div className="h-full rounded-2xl border bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6 hover:border-primary/50 hover:shadow-md transition-all duration-300">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <feature.icon className="w-5 h-5 text-primary" />
                 </div>
