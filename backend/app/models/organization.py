@@ -21,6 +21,9 @@ RESERVED_SLUGS = frozenset({
     # Marketing pages
     "about", "pricing", "terms", "privacy", "contact",
     "security", "legal", "careers", "demo", "trial", "home",
+    # Internal environments
+    "alpha", "beta", "uat", "staging", "stage", "dev", "test",
+    "sandbox", "preview", "canary", "prod", "production",
     # Generic / conflict-prone
     "user", "users", "org", "orgs", "me", "new", "null",
 })
