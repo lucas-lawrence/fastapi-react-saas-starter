@@ -23,19 +23,23 @@ const GREETINGS = {
   },
 }
 
-function pick<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
-}
-
 function getGreeting(name: string) {
-  const hour = new Date().getHours()
+  const now = new Date()
+  const hour = now.getHours()
+  // Seed from date + hour so the pick is stable within the same hour
+  const seed = now.getFullYear() * 100000 + now.getMonth() * 3200 + now.getDate() * 100 + hour
+
   let slot: keyof typeof GREETINGS
   if (hour >= 5 && hour < 12) slot = 'morning'
   else if (hour >= 12 && hour < 18) slot = 'afternoon'
   else if (hour >= 18 && hour < 22) slot = 'evening'
   else slot = 'night'
+
   const g = GREETINGS[slot]
-  return { heading: `${pick(g.headings)}, ${name}`, subtext: pick(g.subtexts) }
+  return {
+    heading: `${g.headings[seed % g.headings.length]}, ${name}`,
+    subtext: g.subtexts[(seed + 1) % g.subtexts.length],
+  }
 }
 
 export function AppHome() {
