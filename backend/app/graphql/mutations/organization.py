@@ -1,5 +1,8 @@
+import uuid
+from datetime import datetime, timezone
+
 import strawberry
-from sqlalchemy import select
+from sqlalchemy import select, update
 from strawberry.types import Info
 
 from app.graphql.mutations.user import get_current_user
@@ -34,3 +37,74 @@ class OrganizationMutation:
         await db.refresh(org)
 
         return OrganizationType(id=str(org.id), name=org.name, slug=org.slug)
+
+    @strawberry.mutation(description="Update an organization's name. Slug is immutable. Requires owner or admin role.")
+    async def update_organization(self, id: strawberry.ID, name: str, info: Info) -> OrganizationType:
+        db = info.context["db"]
+        user = await get_current_user(info)
+
+        try:
+            org_uuid = uuid.UUID(str(id))
+        except ValueError:
+            raise ValueError("Invalid organization ID.")
+
+        member_result = await db.execute(
+            select(OrganizationMember).where(
+                OrganizationMember.organization_id == org_uuid,
+                OrganizationMember.user_id == user.id,
+                OrganizationMember.deleted_at.is_(None),
+                OrganizationMember.role.in_(["owner", "admin"]),
+            )
+        )
+        if not member_result.scalar_one_or_none():
+            raise ValueError("Organization not found or insufficient permissions.")
+
+        org_result = await db.execute(
+            select(Organization).where(Organization.id == org_uuid, Organization.deleted_at.is_(None))
+        )
+        org = org_result.scalar_one_or_none()
+        if not org:
+            raise ValueError("Organization not found.")
+
+        org.name = name.strip()
+        await db.commit()
+        await db.refresh(org)
+        return OrganizationType(id=str(org.id), name=org.name, slug=org.slug)
+
+    @strawberry.mutation(description="Soft-delete an organization. Requires owner role. Permanent deletion occurs after 30 days.")
+    async def delete_organization(self, id: strawberry.ID, info: Info) -> bool:
+        db = info.context["db"]
+        user = await get_current_user(info)
+
+        try:
+            org_uuid = uuid.UUID(str(id))
+        except ValueError:
+            raise ValueError("Invalid organization ID.")
+
+        member_result = await db.execute(
+            select(OrganizationMember).where(
+                OrganizationMember.organization_id == org_uuid,
+                OrganizationMember.user_id == user.id,
+                OrganizationMember.deleted_at.is_(None),
+                OrganizationMember.role == "owner",
+            )
+        )
+        if not member_result.scalar_one_or_none():
+            raise ValueError("Organization not found or insufficient permissions.")
+
+        org_result = await db.execute(
+            select(Organization).where(Organization.id == org_uuid, Organization.deleted_at.is_(None))
+        )
+        org = org_result.scalar_one_or_none()
+        if not org:
+            raise ValueError("Organization not found.")
+
+        now = datetime.now(timezone.utc)
+        await db.execute(
+            update(OrganizationMember)
+            .where(OrganizationMember.organization_id == org_uuid, OrganizationMember.deleted_at.is_(None))
+            .values(deleted_at=now)
+        )
+        org.deleted_at = now
+        await db.commit()
+        return True

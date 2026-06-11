@@ -107,6 +107,24 @@ query MyOrganizations {
 }
 """
 
+GET_ORGANIZATION = """
+query GetOrganization($id: ID!) {
+  organization(id: $id) { id name slug }
+}
+"""
+
+UPDATE_ORGANIZATION = """
+mutation UpdateOrganization($id: ID!, $name: String!) {
+  updateOrganization(id: $id, name: $name) { id name slug }
+}
+"""
+
+DELETE_ORGANIZATION = """
+mutation DeleteOrganization($id: ID!) {
+  deleteOrganization(id: $id)
+}
+"""
+
 
 async def create_organization(
     client: AsyncClient,
@@ -115,6 +133,14 @@ async def create_organization(
     slug: str = "acme",
 ) -> dict:
     return await gql(client, CREATE_ORGANIZATION, {"name": name, "slug": slug}, token=token)
+
+
+async def update_organization(client: AsyncClient, token: str, id: str, name: str) -> dict:
+    return await gql(client, UPDATE_ORGANIZATION, {"id": id, "name": name}, token=token)
+
+
+async def delete_organization(client: AsyncClient, token: str, id: str) -> dict:
+    return await gql(client, DELETE_ORGANIZATION, {"id": id}, token=token)
 
 
 # Only includes fields that are explicitly passed — critical for strawberry.UNSET
