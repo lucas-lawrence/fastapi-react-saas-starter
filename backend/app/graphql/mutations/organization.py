@@ -5,9 +5,11 @@ import strawberry
 from sqlalchemy import select, update
 from strawberry.types import Info
 
+from app.core.permissions import P, has_org_permission
 from app.graphql.mutations.user import get_current_user
 from app.graphql.types import OrganizationType
-from app.models.organization import Organization, OrganizationMember, validate_slug
+from app.models.organization import Organization, validate_slug
+from app.models.role import Role, RoleAssignment
 
 
 @strawberry.type
@@ -31,8 +33,20 @@ class OrganizationMutation:
         db.add(org)
         await db.flush()
 
-        member = OrganizationMember(organization_id=org.id, user_id=user.id, role="owner")
-        db.add(member)
+        owner_role_result = await db.execute(
+            select(Role).where(Role.name == "owner", Role.org_id.is_(None), Role.is_system.is_(True))
+        )
+        owner_role = owner_role_result.scalar_one()
+
+        assignment = RoleAssignment(
+            org_id=org.id,
+            user_id=user.id,
+            role_id=owner_role.id,
+            resource_type="organization",
+            resource_id=org.id,
+            assigned_by=user.id,
+        )
+        db.add(assignment)
         await db.commit()
         await db.refresh(org)
 
@@ -48,15 +62,7 @@ class OrganizationMutation:
         except ValueError:
             raise ValueError("Invalid organization ID.")
 
-        member_result = await db.execute(
-            select(OrganizationMember).where(
-                OrganizationMember.organization_id == org_uuid,
-                OrganizationMember.user_id == user.id,
-                OrganizationMember.deleted_at.is_(None),
-                OrganizationMember.role.in_(["owner", "admin"]),
-            )
-        )
-        if not member_result.scalar_one_or_none():
+        if not await has_org_permission(user.id, org_uuid, P.ORG_SETTINGS_UPDATE, db):
             raise ValueError("Organization not found or insufficient permissions.")
 
         org_result = await db.execute(
@@ -81,15 +87,7 @@ class OrganizationMutation:
         except ValueError:
             raise ValueError("Invalid organization ID.")
 
-        member_result = await db.execute(
-            select(OrganizationMember).where(
-                OrganizationMember.organization_id == org_uuid,
-                OrganizationMember.user_id == user.id,
-                OrganizationMember.deleted_at.is_(None),
-                OrganizationMember.role == "owner",
-            )
-        )
-        if not member_result.scalar_one_or_none():
+        if not await has_org_permission(user.id, org_uuid, P.ORG_DELETE, db):
             raise ValueError("Organization not found or insufficient permissions.")
 
         org_result = await db.execute(
@@ -101,8 +99,8 @@ class OrganizationMutation:
 
         now = datetime.now(timezone.utc)
         await db.execute(
-            update(OrganizationMember)
-            .where(OrganizationMember.organization_id == org_uuid, OrganizationMember.deleted_at.is_(None))
+            update(RoleAssignment)
+            .where(RoleAssignment.org_id == org_uuid, RoleAssignment.deleted_at.is_(None))
             .values(deleted_at=now)
         )
         org.deleted_at = now

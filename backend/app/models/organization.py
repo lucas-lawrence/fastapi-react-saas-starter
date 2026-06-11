@@ -2,7 +2,7 @@ import re
 import uuid
 
 import uuid6
-from sqlalchemy import ForeignKey, String, UniqueConstraint, Uuid
+from sqlalchemy import String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -49,16 +49,3 @@ class Organization(TimestampMixin, Base):
     slug: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
 
 
-class OrganizationMember(TimestampMixin, Base):
-    __tablename__ = "organization_members"
-
-    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid6.uuid7)
-    organization_id: Mapped[uuid.UUID] = mapped_column(
-        Uuid, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=False
-    )
-    user_id: Mapped[uuid.UUID] = mapped_column(
-        Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
-    )
-    role: Mapped[str] = mapped_column(String, nullable=False, default="member")
-
-    __table_args__ = (UniqueConstraint("organization_id", "user_id"),)

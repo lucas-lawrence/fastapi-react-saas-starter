@@ -19,11 +19,21 @@ _base_url = settings.DATABASE_URL.rsplit("/", 1)[0]
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", f"{_base_url}/app_test")
 
 
+_SEED_ROLES = text("""
+    INSERT INTO roles (id, org_id, name, is_system, created_at, updated_at)
+    VALUES
+        (gen_random_uuid(), NULL, 'owner',  TRUE, now(), now()),
+        (gen_random_uuid(), NULL, 'admin',  TRUE, now(), now()),
+        (gen_random_uuid(), NULL, 'member', TRUE, now(), now())
+""")
+
+
 @pytest.fixture(scope="session")
 async def engine():
     _engine = create_async_engine(TEST_DATABASE_URL, echo=False)
     async with _engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        await conn.execute(_SEED_ROLES)
     yield _engine
     async with _engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -36,7 +46,9 @@ async def db(engine):
     async with session_factory() as session:
         yield session
         await session.rollback()
-        await session.execute(text("TRUNCATE refresh_tokens, organizations, users CASCADE"))
+        # CASCADE also clears roles (org_id FK to organizations) — re-seed system roles after
+        await session.execute(text("TRUNCATE organizations, users CASCADE"))
+        await session.execute(_SEED_ROLES)
         await session.commit()
 
 

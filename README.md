@@ -81,7 +81,7 @@ npx shadcn@latest add <component>
 - [BE 0003 — GraphQL over REST](backend/docs/0003-graphql-over-rest.md)
 - [BE 0004 — UUID v7 primary keys](backend/docs/0004-uuid-v7-primary-keys.md)
 - [BE 0005 — Testing strategy](backend/docs/0005-testing.md)
-- [BE 0006 — Multi-tenancy model](backend/docs/0006-multi-tenancy.md)
+- [BE 0006 — Multi-tenancy model + RBAC](backend/docs/0006-multi-tenancy.md)
 
 **Frontend decisions**
 - [FE 0001 — Framework and UI library](frontend/docs/0001-framework-and-ui.md)

@@ -3,8 +3,10 @@ import uuid
 import strawberry
 from sqlalchemy import select
 from strawberry.types import Info
+
 from app.graphql.types import OrganizationType
-from app.models.organization import Organization, OrganizationMember
+from app.models.organization import Organization
+from app.models.role import RoleAssignment
 
 
 async def _user_from_token(info: Info):
@@ -37,12 +39,13 @@ class OrganizationQuery:
             return None
         result = await db.execute(
             select(Organization)
-            .join(OrganizationMember, OrganizationMember.organization_id == Organization.id)
+            .join(RoleAssignment, RoleAssignment.resource_id == Organization.id)
             .where(
                 Organization.id == org_uuid,
                 Organization.deleted_at.is_(None),
-                OrganizationMember.user_id == user.id,
-                OrganizationMember.deleted_at.is_(None),
+                RoleAssignment.user_id == user.id,
+                RoleAssignment.resource_type == "organization",
+                RoleAssignment.deleted_at.is_(None),
             )
         )
         org = result.scalar_one_or_none()
@@ -58,12 +61,14 @@ class OrganizationQuery:
 
         result = await db.execute(
             select(Organization)
-            .join(OrganizationMember, OrganizationMember.organization_id == Organization.id)
+            .join(RoleAssignment, RoleAssignment.resource_id == Organization.id)
             .where(
-                OrganizationMember.user_id == user.id,
-                OrganizationMember.deleted_at.is_(None),
+                RoleAssignment.user_id == user.id,
+                RoleAssignment.resource_type == "organization",
+                RoleAssignment.deleted_at.is_(None),
                 Organization.deleted_at.is_(None),
             )
+            .distinct()
         )
         orgs = result.scalars().all()
         return [OrganizationType(id=str(o.id), name=o.name, slug=o.slug) for o in orgs]

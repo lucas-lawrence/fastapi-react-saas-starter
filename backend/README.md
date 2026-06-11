@@ -31,7 +31,8 @@ app/
     schema.py     Wires queries + mutations into the schema
     context.py    Injects DB session into every request
   core/
-    security.py   JWT creation/verification, password hashing
+    security.py     JWT creation/verification, password hashing
+    permissions.py  Permission constants (P) + has_org_permission() helper
   config.py       Settings from environment variables
   database.py     Async engine + session factory
   main.py         FastAPI app + router mounts
@@ -61,6 +62,13 @@ docs/             Decision records + ERD
 **Ownership — always verify**
 - Before any mutation, confirm the caller owns or has the right role for the target record.
 - Never trust the ID in the request alone — join against the caller's identity.
+
+**RBAC — roles and permissions**
+- System roles (`owner`, `admin`, `member`) are seeded globally; permissions are defined in `core/permissions.py` (`SYSTEM_ROLE_PERMISSIONS`).
+- Custom roles (future) are org-scoped and store permission codes in the `role_permissions` table.
+- Use `has_org_permission(user_id, org_uuid, P.SOME_PERMISSION, db)` to check access — never hardcode role name strings in mutations.
+- `role_assignments` is the single source of truth for membership: a user is "in an org" if they have at least one active assignment. Multiple roles per user are supported; permissions accumulate.
+- When adding a new sub-resource (shop, project), assign `resource_type = '<resource>'` on `RoleAssignment` — no schema change needed.
 
 **Timestamps**
 - Always `DateTime(timezone=True)` → `TIMESTAMPTZ` in PostgreSQL. Never plain `DateTime`.
@@ -109,4 +117,4 @@ The GraphQL schema is the contract. If a field is not in `types.py`, it does not
 | [0003](docs/0003-graphql-over-rest.md) | GraphQL over REST |
 | [0004](docs/0004-uuid-v7-primary-keys.md) | UUID v7 primary keys |
 | [0005](docs/0005-testing.md) | Testing strategy |
-| [0006](docs/0006-multi-tenancy.md) | Multi-tenancy model |
+| [0006](docs/0006-multi-tenancy.md) | Multi-tenancy model + RBAC |
