@@ -92,3 +92,4 @@ npx shadcn@latest add <component>
 - [FE 0006 — Page titles](frontend/docs/0006-page-titles.md)
 - [FE 0007 — Settings pages](frontend/docs/0007-settings.md)
 - [FE 0008 — Frontend testing](frontend/docs/0008-testing.md)
+- [FE 0009 — Visual style](frontend/docs/0009-visual-style.md)

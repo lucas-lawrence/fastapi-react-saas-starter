@@ -8,7 +8,7 @@ import { Pricing } from '@/components/sections/Pricing'
 export function Landing() {
   useEffect(() => { document.title = 'SaaS' }, [])
   return (
-    <>
+    <div className="bg-gradient-to-b from-blue-50/80 via-white to-white dark:from-background dark:via-background dark:to-background">
       <Navbar />
       <main>
         <Hero />
@@ -16,6 +16,6 @@ export function Landing() {
         <Pricing />
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

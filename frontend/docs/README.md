@@ -16,3 +16,4 @@ These are not architecture decisions (those live in `../../docs/`) but deliberat
 | [0006](0006-page-titles.md) | Page titles |
 | [0007](0007-settings.md) | Settings pages (profile + password) |
 | [0008](0008-testing.md) | Frontend testing (Vitest) |
+| [0009](0009-visual-style.md) | Visual style (floating pill navbar, gradients, glass morphism) |

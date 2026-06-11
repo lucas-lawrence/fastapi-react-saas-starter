@@ -29,12 +29,12 @@ const NAV_LINKS = [
 
 function DropdownMenu({ items }: { items: { label: string; href: string; description: string }[] }) {
   return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded-xl border bg-popover shadow-lg p-1.5 z-50">
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-56 rounded-2xl border border-white/20 bg-white/90 dark:bg-black/90 backdrop-blur-xl shadow-xl p-1.5 z-50">
       {items.map((item) => (
         <a
           key={item.label}
           href={item.href}
-          className="block rounded-lg px-3 py-2.5 hover:bg-muted transition-colors"
+          className="block rounded-xl px-3 py-2.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
         >
           <p className="text-sm font-medium">{item.label}</p>
           <p className="text-xs text-muted-foreground">{item.description}</p>
@@ -50,7 +50,7 @@ export function Navbar() {
   const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 8)
+    const handler = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -66,54 +66,58 @@ export function Navbar() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-300',
-        scrolled ? 'border-b bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
-      )}
-    >
-      <div className="mx-auto max-w-screen-xl px-4 md:px-12 lg:px-20 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold tracking-tight">
-          SaaS
-        </Link>
-
-        <nav ref={navRef} className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link) => (
-            <div key={link.label} className="relative">
-              {link.children ? (
-                <button
-                  onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
-                  className="flex items-center gap-1 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
-                >
-                  {link.label}
-                  <ChevronDown className={cn('w-3.5 h-3.5 transition-transform', openDropdown === link.label && 'rotate-180')} />
-                </button>
-              ) : (
-                <a
-                  href={link.href}
-                  className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 block"
-                >
-                  {link.label}
-                </a>
-              )}
-              {link.children && openDropdown === link.label && (
-                <DropdownMenu items={link.children} />
-              )}
-            </div>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <Link to="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
-            Sign In
+    <header className="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
+      <div
+        className={cn(
+          'w-full max-w-4xl rounded-full border transition-all duration-300',
+          scrolled
+            ? 'bg-white/85 dark:bg-black/85 backdrop-blur-xl shadow-lg border-black/10 dark:border-white/10'
+            : 'bg-white/60 dark:bg-black/60 backdrop-blur-md shadow-sm border-black/8 dark:border-white/8'
+        )}
+      >
+        <div className="flex items-center justify-between h-12 px-5">
+          <Link to="/" className="text-base font-bold tracking-tight shrink-0">
+            SaaS
           </Link>
-          <Link
-            to="/register"
-            className={cn(buttonVariants({ size: 'sm' }), 'gap-1.5')}
-          >
-            <Zap className="w-3.5 h-3.5" />
-            Get Started
-          </Link>
+
+          <nav ref={navRef} className="hidden md:flex items-center gap-0.5">
+            {NAV_LINKS.map((link) => (
+              <div key={link.label} className="relative">
+                {link.children ? (
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
+                    className="flex items-center gap-1 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/5"
+                  >
+                    {link.label}
+                    <ChevronDown className={cn('w-3 h-3 transition-transform', openDropdown === link.label && 'rotate-180')} />
+                  </button>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/5 block"
+                  >
+                    {link.label}
+                  </a>
+                )}
+                {link.children && openDropdown === link.label && (
+                  <DropdownMenu items={link.children} />
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <Link to="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
+              Sign In
+            </Link>
+            <Link
+              to="/register"
+              className={cn(buttonVariants({ size: 'sm' }), 'gap-1.5 rounded-full')}
+            >
+              <Zap className="w-3.5 h-3.5" />
+              Get Started
+            </Link>
+          </div>
         </div>
       </div>
     </header>

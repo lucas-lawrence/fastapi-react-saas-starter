@@ -7,8 +7,9 @@ import { ArrowRight } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen text-center px-4 pt-16 overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+    <section className="relative flex flex-col items-center justify-center min-h-screen text-center px-4 pt-24 overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-100/60 via-indigo-50/30 to-white dark:from-indigo-950/30 dark:via-background dark:to-background" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(120,119,198,0.15),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(120,119,198,0.1),transparent)]" />
 
       <MaxWidthWrapper className="flex flex-col items-center gap-6">
         <AnimationContainer delay={0.1}>
