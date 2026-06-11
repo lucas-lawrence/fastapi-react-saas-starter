@@ -87,6 +87,30 @@ async def login_user(
     return data["data"]["login"]
 
 
+CREATE_ORGANIZATION = """
+mutation CreateOrganization($name: String!, $slug: String!) {
+  createOrganization(name: $name, slug: $slug) {
+    id name slug
+  }
+}
+"""
+
+MY_ORGANIZATIONS = """
+query MyOrganizations {
+  myOrganizations { id name slug }
+}
+"""
+
+
+async def create_organization(
+    client: AsyncClient,
+    token: str,
+    name: str = "Acme Corp",
+    slug: str = "acme",
+) -> dict:
+    return await gql(client, CREATE_ORGANIZATION, {"name": name, "slug": slug}, token=token)
+
+
 # Only includes fields that are explicitly passed — critical for strawberry.UNSET
 # to work correctly (missing fields must be absent from the mutation, not null).
 async def update_user(client: AsyncClient, token: str, **fields) -> dict:

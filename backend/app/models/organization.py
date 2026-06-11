@@ -9,10 +9,20 @@ from app.database import Base
 from app.models.mixins import TimestampMixin
 
 RESERVED_SLUGS = frozenset({
-    "admin", "api", "app", "www", "mail", "dashboard", "console",
-    "help", "support", "docs", "blog", "status", "billing", "auth",
-    "login", "signup", "static", "assets", "cdn", "account", "settings",
-    "user", "users", "org", "orgs",
+    # Infrastructure / routing
+    "admin", "api", "app", "www", "mail", "static", "assets", "cdn",
+    "health", "webhook", "webhooks", "public", "internal",
+    # Auth flows
+    "auth", "login", "signup", "account", "settings",
+    # App sections
+    "dashboard", "console", "billing", "status",
+    # Support / docs
+    "help", "support", "docs", "blog",
+    # Marketing pages
+    "about", "pricing", "terms", "privacy", "contact",
+    "security", "legal", "careers", "demo", "trial", "home",
+    # Generic / conflict-prone
+    "user", "users", "org", "orgs", "me", "new", "null",
 })
 
 _SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*[a-z0-9]$")

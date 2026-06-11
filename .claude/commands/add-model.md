@@ -10,6 +10,9 @@ Before writing any code, read these files to understand existing patterns:
 - `backend/app/graphql/schema.py` — how queries and mutations are wired in
 - `backend/app/graphql/queries/user.py` — example query
 - `backend/app/graphql/mutations/user.py` — example mutation
+- `backend/tests/helpers.py` — test helper patterns
+- `backend/tests/test_organization.py` — most recent test file, use as reference
+- `backend/tests/conftest.py` — fixture setup and TRUNCATE list (add new tables here)
 
 ## Steps
 
@@ -50,4 +53,11 @@ Before writing any code, read these files to understand existing patterns:
 
 7. **Update the ER diagram** at `backend/docs/data/erd.md` — add the new entity and its relationships
 
-8. **Commit** all changed files together
+8. **Write tests** in `backend/tests/test_<model>.py`:
+   - Add GraphQL query/mutation strings and a helper function to `backend/tests/helpers.py`
+   - Add the new table(s) to the `TRUNCATE` in `backend/tests/conftest.py`
+   - Cover: success path, validation errors, auth guards, and key edge cases
+   - Run with: `docker compose exec backend uv run pytest tests/test_<model>.py -v`
+   - Then run the full suite: `docker compose exec backend uv run pytest -q`
+
+9. **Commit** all changed files together

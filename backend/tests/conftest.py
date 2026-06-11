@@ -36,7 +36,7 @@ async def db(engine):
     async with session_factory() as session:
         yield session
         await session.rollback()
-        await session.execute(text("TRUNCATE refresh_tokens, users CASCADE"))
+        await session.execute(text("TRUNCATE refresh_tokens, organizations, users CASCADE"))
         await session.commit()
 
 

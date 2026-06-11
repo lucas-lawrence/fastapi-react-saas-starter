@@ -25,6 +25,8 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:3000","http://localhost:5173"]}
     volumes:
       - ./backend/alembic/versions:/app/alembic/versions
+      - ./backend/app:/app/app
+      - ./backend/tests:/app/tests
     depends_on:
       db:
         condition: service_healthy
