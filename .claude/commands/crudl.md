@@ -2,9 +2,9 @@ Implement and test all CRUDL operations for a model: Create, Read (single), Upda
 
 Use this after `/add-model` to ensure the model is fully covered, or to audit an existing model.
 
-## Gather context first
+## Step 1 — Gather context
 
-Before writing anything, read:
+Read these files before writing anything:
 
 - `backend/app/models/<model>.py` — fields, relationships, soft-delete
 - `backend/app/graphql/mutations/<model>.py` — existing mutations
@@ -14,7 +14,21 @@ Before writing anything, read:
 - `backend/tests/helpers.py` — existing helpers
 - `backend/tests/test_delete_user.py` + `backend/tests/test_user.py` — reference test files
 
-Identify which operations are missing (not yet implemented) and which tests are missing (implemented but untested). Implement missing operations first, then write tests for all.
+## Step 2 — Output a behavior summary
+
+Before writing any code, output a short summary of the expected behavior for this specific model — one line per operation. This acts as a spec review before implementation. Example for Organization:
+
+```
+C  createOrganization(name, slug) — validates slug format + reserved list, checks uniqueness, creator becomes owner
+R  organization(id) — returns org by ID; null if not found or soft-deleted; only accessible by members
+U  updateOrganization(id, name) — name only (slug immutable); owner/admin only
+D  deleteOrganization(id) — soft-delete; owner only; members cascade
+L  myOrganizations — orgs the current user belongs to; excludes soft-deleted; [] if unauthenticated
+```
+
+Then confirm which operations and tests are already present vs missing, and proceed only with what's needed.
+
+## Step 3 — Implement and test
 
 ## Operations checklist
 
