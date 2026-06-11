@@ -11,3 +11,4 @@ Documents design and technical decisions made on the backend — stack choices, 
 | [0003](0003-graphql-over-rest.md) | GraphQL over REST |
 | [0004](0004-uuid-v7-primary-keys.md) | UUID v7 primary keys |
 | [0005](0005-testing.md) | Testing strategy |
+| [0006](0006-multi-tenancy.md) | Multi-tenancy model |
